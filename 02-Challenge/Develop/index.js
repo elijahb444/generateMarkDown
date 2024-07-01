@@ -2,11 +2,11 @@
 const fs = require('fs')
 const inquirer = require('inquirer')
 
-console.log("Welcome to Elijah's README generator! :)")
+console.log("Welcome to Elijah's README generator! :O")
 
 
 // TODO: Create an array of questions for user input
-inquirer.prompt([
+const questions = [
     {
         type: 'input',
         message: 'What would you like to name your project?',
@@ -53,9 +53,21 @@ inquirer.prompt([
         name: 'license',
         choices: ['MIT', 'GPLv2', 'Apache', 'GPLv3', 'BSD 3-Clause']
     }
-])
-.then((response) => {
-    const readmeContent = `
+]
+ 
+
+// TODO: Create a function to write README file
+function writeToFile(fileName, data) {
+    fs.writeFile('generate.md', readmeContent, err => 
+        err ? console.error('Document creation failed.') : console.log('Document created successfully!')
+    );
+}
+
+
+// TODO: Create a function to initialize app
+function init() {
+    inquirer.prompt(questions).then((response) => {
+        const readmeContent = `
 # ${response.title}
 
 ![License](https://img.shields.io/badge/license-${response.license}-blue.svg)
@@ -91,22 +103,11 @@ This project is licensed under the ${response.license} license.
 For any questions, please contact me:
 - GitHub: [${response.github}](https://github.com/${response.github})
 - Email: [${response.email}](mailto:${response.email})
-    `;
+        `;
 
-    fs.writeFile('README.md', readmeContent, err => 
-        err ? console.error('Document creation failed.') : console.log('Document created successfully!')
-    );
-});
- 
-
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {
-
+        writeToFile('generate.md', readmeContent);
+    });
 }
-
-
-// TODO: Create a function to initialize app
-function init() {}
 
 
 // Function call to initialize app
