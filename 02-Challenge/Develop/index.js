@@ -9,7 +9,7 @@ console.log("Welcome to Elijah's README generator! :)")
 inquirer.prompt([
     {
         type: 'input',
-        message: 'What would you like to name the file?',
+        message: 'What would you like to name your project?',
         name: 'title',
     },
     {
@@ -19,22 +19,22 @@ inquirer.prompt([
     },
     {
         type: 'input',
-        message: 'Please enter installation instructions: ',
+        message: 'Please enter installation instructions:',
         name: 'installation'
     },
     {
         type: 'input',
-        message: 'Please enter usage information: ',
+        message: 'Please enter usage information:',
         name: 'usage'
     },
     {
         type: 'input',
-        message: 'Please enter contribution guidelines: ',
+        message: 'Please enter contribution guidelines:',
         name: 'contribution'
     },
     {
         type: 'input',
-        message: 'Please enter test instructions: ',
+        message: 'Please enter test instructions:',
         name: 'test'
     },
     {
@@ -43,38 +43,60 @@ inquirer.prompt([
         name: 'github'
     },
     {
+        type: 'input',
+        message: 'What is your email address?',
+        name: 'email'
+    },
+    {
         type: 'list',
-        message: 'Please choose a license for your README:',
+        message: 'Please choose a license for your project:',
         name: 'license',
-        choices: ['License 1', 'License 2', 'License 3', 'License 4', 'License 5']
+        choices: ['MIT', 'GPLv2', 'Apache', 'GPLv3', 'BSD 3-Clause']
     }
 ])
-    .then((response) => 
-    fs.writeFile('generation.md', `# ${response.title}
+.then((response) => {
+    const readmeContent = `
+# ${response.title}
+
+![License](https://img.shields.io/badge/license-${response.license}-blue.svg)
 
 ## Table of Contents
-    - [Description](#description)
-
+- [Description](#description)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [Tests](#tests)
+- [License](#license)
+- [Questions](#questions)
 
 ## Description
-    ${response.description}
+${response.description}
 
-### Installation
-    ${response.installation}
+## Installation
+${response.installation}
 
-### Usage
-    ${response.usage}
+## Usage
+${response.usage}
 
-### Contributing
-    ${response.contribution}
+## Contributing
+${response.contribution}
 
-### Testing Instructions
-    ${response.test}
+## Tests
+${response.test}
 
-### Questions?
-    [Gitub](github.com/${response.github})
+## License
+This project is licensed under the ${response.license} license.
 
-`, err => err ? console.error('Document loading failed.') : console.log('Document created successfully!')))
+## Questions
+For any questions, please contact me:
+- GitHub: [${response.github}](https://github.com/${response.github})
+- Email: [${response.email}](mailto:${response.email})
+    `;
+
+    fs.writeFile('README.md', readmeContent, err => 
+        err ? console.error('Document creation failed.') : console.log('Document created successfully!')
+    );
+});
  
 
 // TODO: Create a function to write README file
