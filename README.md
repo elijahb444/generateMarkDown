@@ -11,3 +11,6 @@ Attached is a video demonstrating:
 https://drive.google.com/file/d/10uqxNaPSl-aJdvAoG44H365lRUITqAIz/view?usp=drive_link 
 
 
+An image of the blank template:
+
+![image](https://github.com/elijahb444/generateMarkDown/assets/167688028/a66978ea-41a4-48a6-94dc-a0e0d2f3d92d) 
